@@ -33,7 +33,7 @@ function createBoardTemplate(){
 createBoardTemplate();
 
 // function for checking the availability
-function checkAvailability(row, col, board){
+function checkAvailability(row, col){
     // row availability
     for(let i = 0;i < 9; i++){
         if(i !== col && board[row][i] === board[row][col])
@@ -47,8 +47,8 @@ function checkAvailability(row, col, board){
     }
 
     // cell availability
-    let cellRow = 0 + 3*(row/3);
-    let cellCol = 0 + 3*(col/3);
+    let cellRow = Math.floor(row/3)*3;
+    let cellCol = Math.floor(col/3)*3;
 
     for(let i = cellRow; i < cellRow + 3; i++){
         for(let j = cellCol; j < cellCol + 3; j++){
@@ -71,16 +71,41 @@ function isBoardBlank(){
     return true;
 }
 
-//creating a new board array
+// creating a new board array
 function createNewBoard(){
 
 }
 
+// solve the board
+function solve(row, col){
+    if(row === 9)
+        return true
+    else if(col === 9)
+        return solve(row+1, 0);
+    else if(board[row][col] !== 0)
+        return solve(row, col+1);
+    else{
+        for(let k = 1; k < 10; k++){
+            board[row][col] = k;
+            
+            if(checkAvailability(row, col)){
+                console.log(k);
+                if(solve(row, col+1))
+                    return true
+                
+            }
+        }
+        board[row][col] = 0
+        return false
+    }
+}
+
 // writing the board array to the board
-function writeToBoard(){
+function writeBoard(){
     for(let i = 0;i < 81; i++){
         const row = Math.floor(i/9);
         const col = i%9;
+
         if(board[row][col] !== 0)
             inputs[i].value = board[row][col];
     }
@@ -102,10 +127,13 @@ clearBtn.addEventListener('click', () => {
 //create buttons event handler
 createBtn.addEventListener('click', () => {
     createNewBoard();
-    writeToBoard();
+    writeBoard();
 });
 
 //solve buttons event handler
 solveBtn.addEventListener('click', () => {
-    
+    if(solve(0, 0))
+        writeBoard();
+    else
+        console.log("There is no answer");
 });
