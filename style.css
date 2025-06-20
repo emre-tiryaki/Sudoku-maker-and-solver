@@ -1,0 +1,42 @@
+body{
+    background-color: rgb(154, 146, 146);
+    text-align: center;
+}
+
+#button-container{
+    width: 1000px;
+    display: inline-block;
+}
+
+button{
+    width: 300px;
+    height: 100px;
+    font-size: xx-large;
+    background-color: cadetblue;
+    color: white;
+    border: 2px;
+    border-radius: 10px;
+}
+
+.btn:active{
+    background-color: rgb(70, 108, 109);
+}
+
+#board-container{
+    display: inline-grid;
+    border: 5px, solid, black;
+    grid-template-columns: repeat(9, 50px);
+    grid-template-rows: repeat(9, 50px);
+    gap: 0px;
+}
+
+.cell{
+    display: grid;
+    font-size: 60px;
+    text-align: center;
+    border: 3px, solid, black;
+    grid-template-columns: repeat(1, 20px);
+    grid-template-rows: repeat(0.5, 20px);
+    gap: 0px;
+    border: 1px, solid, black;
+}
