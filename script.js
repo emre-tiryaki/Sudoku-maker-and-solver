@@ -2,6 +2,7 @@
 const createBtn = document.getElementById('create');
 const solveBtn = document.getElementById('solve');
 const clearBtn = document.getElementById('clear');
+const blankCountInput = document.getElementById('blank-count');
 const boardDiv = document.getElementById('board-container');
 
 // board inputs
@@ -31,6 +32,17 @@ function createBoardTemplate(){
     }
 }
 createBoardTemplate();
+
+//clearing board function
+function clearBoard(){
+    if(!isBoardBlank()){
+        inputs.forEach(input => input.value = "");
+        for(let i = 0; i < board.length; i++){
+            for(let j = 0; j < board[i].length; j++)
+                board[i][j] = 0;
+        }
+    }
+}
 
 // function for checking the availability
 function checkAvailability(row, col){
@@ -71,9 +83,71 @@ function isBoardBlank(){
     return true;
 }
 
+// for shuffling array
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+
 // creating a new board array
 function createNewBoard(){
+    if(!isBoardBlank())
+        clearBoard()
 
+    function tryFill(row, col) {
+        if (row === 9) 
+            return true;
+        if (col === 9) 
+            return tryFill(row + 1, 0);
+        if (board[row][col] !== 0) 
+            return tryFill(row, col + 1);
+
+        let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        shuffle(nums);
+
+        for (let num of nums) {
+            board[row][col] = num;
+            if (checkAvailability(row, col)) {
+                if (tryFill(row, col + 1)) 
+                    return true;
+            }
+            board[row][col] = 0;
+        }
+
+        return false;
+    }
+
+    tryFill(0, 0);
+
+    removeCells(blankCountInput.value)
+}
+
+// for removing some cells
+function removeCells(count) {
+    if(count < 0 || count > 81)
+        return;
+    
+    let removed = 0;
+    while (removed < count) {
+        let row = Math.floor(Math.random() * 9);
+        let col = Math.floor(Math.random() * 9);
+
+        if (board[row][col] !== 0) {
+            board[row][col] = 0;
+            removed++;
+        }
+    }
+}
+
+
+// a function to see how many solutions there are
+function solutionNum(){
+    let n = 1;
+
+    return n;
 }
 
 // solve the board
@@ -89,10 +163,8 @@ function solve(row, col){
             board[row][col] = k;
             
             if(checkAvailability(row, col)){
-                console.log(k);
                 if(solve(row, col+1))
                     return true
-                
             }
         }
         board[row][col] = 0
@@ -113,14 +185,7 @@ function writeBoard(){
 
 //clear buttons event handler
 clearBtn.addEventListener('click', () => {
-    if(!isBoardBlank()){
-        const inputs = document.querySelectorAll('input');
-        inputs.forEach(input => input.value = "");
-        for(let i = 0; i < board.length; i++){
-            for(let j = 0; j < board[i].length; j++)
-                board[i][j] = 0;
-        }
-    }
+    clearBoard();
     console.log("board cleared")
 });
 

@@ -7,11 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Sudoku Solver</h1>
-    <div id="button-container">
-        <button class="btn" id="create">create Sudoku</button>
-        <button class="btn" id="solve">Solve Sudoku</button>
-        <button class="btn" id="clear">clear board</button> 
+    <div id="container">
+        <h1>Sudoku Solver</h1>
+        <div id="button-container">
+            <button class="btn" id="create">create Sudoku</button>
+            <button class="btn" id="solve">Solve Sudoku</button>
+            <button class="btn" id="clear">clear board</button> 
+        </div>
+        <div id="blanks-setting">
+            <label for="blank-count">number of blanks:</label>
+            <input id="blank-count" type="number" value="40" max="81" min="0">
+        </div>
     </div>
     <hr>
     <div id="board-container">
