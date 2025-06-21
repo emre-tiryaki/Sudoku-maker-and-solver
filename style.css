@@ -1,6 +1,12 @@
 body{
-    background-color: rgb(154, 146, 146);
+    background: #2A7B9B;
+    background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
     text-align: center;
+}
+
+h1{
+    font-size: 3rem;
+    height: 20px;
 }
 
 #container{
@@ -19,8 +25,8 @@ body{
 button{
     width: 33%;
     height: 100px;
-    font-size: 100%;
-    background-color: cadetblue;
+    font-size: 3rem;
+    background-color: rgb(160, 95, 151);
     color: white;
     border: 2px;
     border-radius: 10px;

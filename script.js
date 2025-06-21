@@ -31,7 +31,7 @@ function createBoardTemplate(){
         boardDiv.appendChild(inputs[i]);
     }
 }
-createBoardTemplate();
+
 
 //clearing board function
 function clearBoard(){
@@ -202,3 +202,6 @@ solveBtn.addEventListener('click', () => {
     else
         console.log("There is no answer");
 });
+
+createBoardTemplate();
+writeBoard();
